@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RATING THE PICTURES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        h1{
+            padding: 10px 0;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            
+        }
+        .star-rating{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgb(46, 133, 173);
+            
+        }
+        .starts{
+            width: 400px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .start{
+            list-style: none;
+            font-size: 3rem;
+            padding-left: 15px;
+            color: white;
+
+        }
+        .start:first-child{
+            padding: 0;
+        }
+        img{
+            border-radius: 55px 55px 55px 55px;
+-moz-border-radius: 55px 55px 55px 55px;
+-webkit-border-radius: 55px 55px 55px 55px;
+border: 6px solid #000000;
+        }
+        .msg{
+            width: 400px;
+            height: 50px;
+            line-height: 40px;
+            background: #00b894;
+            text-align: center;
+            border-radius: 42px 42px 42px 42px;
+-moz-border-radius: 42px 42px 42px 42px;
+-webkit-border-radius: 42px 42px 42px 42px;
+border: 5px solid #000000;
+        }
+
+        .nextbtn{
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: #00b894;
+            font-size: 1.4rem;
+            outline: none;
+
+        }
+        .nextbtn:hover{
+            color: #00b894;
+            background: white;
+            border: 2px solid #00b894;
+            cursor: pointer;
+        }
+        .orange{
+            color: orange;
+        }
+        .yellow{
+            color: yellow;    
+        }
+    </style>
+
+</head>
+<body>
+    <h1>RATE YOUR FAVOURITE PICTURES</h1>
+    <div class="star-rating">
+        <img src="https://picsum.photos/400/300" alt="">
+        <ul class="starts">
+            <li class="start"><i class="fa fa-star"></i></li>
+            <li class="start"><i class="fa fa-star"></i></li>
+            <li class="start"><i class="fa fa-star"></i></li>
+            <li class="start"><i class="fa fa-star"></i></li>
+            <li class="start"><i class="fa fa-star"></i></li>
+        </ul>
+        <p class="msg">RATING</p>
+        <br>
+        <button class="nextbtn" onclick="nextpage()"> NEXT</button>
+    </div>
+
+    <script>
+        const stars=document.querySelectorAll(".start");
+        const output=document.querySelector('.msg');
+      
+        for(let x=0;x<stars.length;x++){
+            stars[x].starsValue=(x+1);
+            //stars[x].addEventListener('click',function(){
+              //  console.log('i am clicked');
+            //}) 
+            ['click',"mouseover","mouseout"].forEach(function(e){
+                stars[x].addEventListener(e,showRating);
+            })
+        }
+        function showRating(e){
+            let type=e.type;
+            let starvalue=this.starsValue;
+            if(type==='click'){
+                if(starvalue>1){
+                    output.innerHTML="you rated this"+" "+starvalue+" "+"stars";
+                }
+            }
+            stars.forEach(function(ele,index){
+                if(type==='click'){
+                    if(index<starvalue){
+                        ele.classList.add("orange");
+                    }else{
+                        ele.classList.remove("orange");
+                    }
+                }
+                if(type==='mouseover'){
+                    if(index<starvalue){
+                        ele.classList.add("yellow");
+                    }else{
+                        ele.classList.remove("yellow");
+                    }
+                }
+                if(type==='mouseout'){
+                    ele.classList.remove("yellow");
+                }
+            })
+        }
+
+        function nextpage(){
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>
