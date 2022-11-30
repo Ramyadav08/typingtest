@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>typing speed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <Style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+        .main{
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-color: #3498db;
+        }
+        .center{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            text-align: center;
+        }
+        h1{
+            margin-bottom: 30px;
+            text-shadow: 1px 2px 3px #2980b9;
+            font-size: 2.1rem;
+            color: #ecf0f1;
+        }
+        h2{
+            text-align: center;
+        }
+        textarea{
+            background-color: #444;
+            box-shadow: 0px 0px 2px rgb(0,0,0,0.2);
+            border-radius: 10px 10px 0 0;
+            border: 20px solid #34495e;
+            color: white;
+            font-size: 1.3rem;
+        }
+        #btnstart{
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 5px solid #2980b9;
+            background-color: #ecf0f1;
+            font-size: 1rem;
+        }
+    </Style>
+</head>
+<body>
+    <div class="main">
+        <div class="center">
+            <h1>WELL COME TO THE TYPING SPEED TEST</h1>
+            <h2 id="msg"></h2><br>
+            <textarea name="" id="mywords" cols="100" rows="10" placeholder="Remeber me!"></textarea>
+            <br>
+            <button id="btnstart">Start</button>
+        </div>
+    </div>
+
+    <script>
+        const setOfWord=["Hello everyone goodafternoon! this is me Virat kohli. Basically i am from Nepal but nowadays i live at rajkot. I did my higher secondery school from Annapurna model college from Nepal board.",
+        "Now currently i am pursuing B.tech computer engineering from R.K University rajkot,Gujarat(India).",
+        "My father is normal former and my mother is a housewife. My short term goal is to getting job in reputated company and my long term goal is i want to see my self as respectible position of that orginazation",
+        " My area of interest is full stack developer .recentlly i started to studying MERN!"];
+        const msg=document.getElementById('msg');
+        const typedword=document.getElementById('mywords');
+        const btn=document.getElementById('btnstart');
+        let startTime,endTime;
+        const playgame=()=>{
+            let randomWords=Math.floor(Math.random()*setOfWord.length);
+            msg.innerText=setOfWord[randomWords];
+            let date=new Date();
+            startTime=date.getTime();
+            btn.innerText="Done";
+        }
+
+        const endPlay=()=>{
+            let date=new Date();
+            endTime=date.getTime();
+            let totalTime=((endTime-startTime)/1000);
+            let totalStr=typedword.value;
+            let wordCount=wordcounter(totalStr);
+            let speed=Math.floor((wordCount/totalTime)*60);
+            let finalmsg="your typing speed is "+" "+speed+" "+"word per minute"
+            finalmsg+=compareword(msg.innerText,totalStr);
+            msg.innerText=finalmsg;
+        }
+
+
+        const compareword=(str1,str2)=>{
+            let word1=str1.split(" ");
+            let word2=str2.split(" ");
+            let cnt=0;
+            word1.forEach(function(item,index){
+                if(item==word2[index]){
+                    cnt++;
+                }
+            });
+            let errorword=(word1.length-cnt);
+            return (cnt+"correct out of"+word1.length+"words and the total number of error are"+errorword+".");
+        }
+
+        const wordcounter=(str)=>{
+            let response=str.split(" ").length;
+            return response;
+        }
+        
+        btn.addEventListener('click',function(){
+            if(this.innerText=="Start"){
+                typedword.diabled=false;
+                playgame();
+
+            }else if(this.innerText=="Done"){
+                typedword.disabled=true;
+                btn.innerText="Start";
+                endPlay();
+            }
+        })
+
+    </script>
+</body>
+</html>
